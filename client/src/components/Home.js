@@ -2,6 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+
+import 'bootstrap/dist/css/bootstrap.min.css';  
+// import {Container, Row} from 'react-bootstrap';  
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 const Home = () => {
   const[recipes,setRecipe]=useState([])
   useEffect(()=>{
@@ -17,10 +22,17 @@ const Home = () => {
   },[])
   return (
     <div>
-      <h2>recipes</h2>
+      <h2 className='text-center mt-5 p-4'>recipes</h2>
+      <div className='container '>
+        <div className='row h-25'>
+        
+      {/* <Container className=' row p-4 overflow '> */}
       {
       recipes?.map((recipe)=>(
-         <Card key={recipe._id} style={{ width: '18rem' }}>
+          <div className='col-md-4 '>
+         
+         <Card key={recipe._id}   
+         className=" bg-light mx-auto my-2 ">
          <Card.Img variant="top" src={recipe.imageUrl} />
          <Card.Body>
            <Card.Title>{recipe.name}</Card.Title>
@@ -33,10 +45,14 @@ const Home = () => {
            <Card.Text>
              {recipe.cookingTime}
            </Card.Text>
-           <Button variant="primary">Go somewhere</Button>
+           <Button variant="primary">save</Button>
          </Card.Body>
        </Card>
+       </div>
       ))}
+       {/* </Container> */}
+       </div>
+       </div>
     </div>
   )
 }
