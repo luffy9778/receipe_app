@@ -40,4 +40,6 @@ router.post("/login",async(req,res)=>{
     console.log(user)
     res.json({ token, userID: user._id });
 })
-module.exports=router
+
+// export { router as userRouter };
+module.exports=router 

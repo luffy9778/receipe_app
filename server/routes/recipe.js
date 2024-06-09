@@ -1,8 +1,9 @@
 const express=require("express")
 const RecipesModel=require("../model/Recipes")
+const  verifytoken = require("../middleware/verifytoken")
 const router=express.Router()
 
-router.post("/",async(req,res)=>{
+router.post("/",verifytoken, async(req,res)=>{
     const{name,ingredients,instructions,imageUrl,cookingTime}=req.body
     if(!name||!ingredients||!instructions||!imageUrl||!cookingTime){
         return res.status(401).json({message:"all feilds are required"})

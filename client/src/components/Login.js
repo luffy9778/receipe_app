@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import axios from "axios"
+import {useCookies} from "react-cookie"
+import {useNavigate,Link} from "react-router-dom"
 
 const Login = () => {
   const[username,setUsername]=useState("")
   const[password,setPassword]=useState("")
+  const[c,setCokkies]=useCookies(["acces_token"])
+  const navigate=useNavigate()
   const handelRegister=async(e)=>{
     e.preventDefault()
     try {
@@ -12,8 +16,14 @@ const Login = () => {
       })
       console.log(result)
       alert("login successfull")
+      setCokkies("access_token", result.data.token);
+      console.log("token",result.data.token)
+      console.log("id",result.data.userID)
+      window.localStorage.setItem("userID", result.data.userID);
+      
       setUsername("")
       setPassword("")
+      navigate("/")
     } catch (error) {
       console.log(error)
     }
@@ -49,7 +59,8 @@ const Login = () => {
             <div className='text-center'>
                 <button type="submit" class="btn btn-info text-white  m-2" style={{backgroundColor:"#1995AD"}}>Submit</button>
             </div>
-          </form>
+            <Link className='nav-link text-center ' to="/register"><p>don't have an account?</p></Link>
+          </form>   
       </div>
     </div>
    
