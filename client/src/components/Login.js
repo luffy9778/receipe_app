@@ -14,13 +14,9 @@ const Login = () => {
       const result=await axios.post("http://localhost:3000/auth/login",{
         username,password
       })
-      console.log(result)
       alert("login successfull")
       setCokkies("access_token", result.data.token);
-      console.log("token",result.data.token)
-      console.log("id",result.data.userID)
-      window.localStorage.setItem("userID", result.data.userID);
-      
+     localStorage.setItem("user", JSON.stringify(result.data.user));
       setUsername("")
       setPassword("")
       navigate("/")
