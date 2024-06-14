@@ -7,19 +7,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import {Container, Row} from 'react-bootstrap';  
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-const Home = () => {
+const Home = ({search}) => {
   const[recipes,setRecipe]=useState([])
   useEffect(()=>{
     const fetchrecipes=async()=>{
       try {
         const response=await axios.get("http://localhost:3000/recipe")
-        setRecipe(response.data)
+        let result=response.data
+        if(search){
+          result=result.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase()))
+        }
+        setRecipe(result)
       } catch (error) {
         console.log(error)
       }
     }
     fetchrecipes()
-  },[])
+  },[search])
   return (
     <div>
       <h2 className='text-center mt-5 p-4'>recipes</h2>
@@ -37,10 +41,11 @@ const Home = () => {
          <Card.Body>
            <Card.Title>{recipe.name}</Card.Title>
            <Card.Text>
-             {recipe.ingredients}
+             {/* {recipe.ingredients} */}
+             {recipe.ingredients.toString().length<25?(recipe.ingredients):(`${recipe.ingredients.slice(0,25)}...`)}
            </Card.Text>
            <Card.Text>
-             {recipe.instructions}
+             {recipe.instructions.length<25?(recipe.instructions):(`${recipe.instructions.slice(0,25)}...`)}
            </Card.Text>
            <Card.Text>
              {recipe.cookingTime}
