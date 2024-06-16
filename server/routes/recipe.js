@@ -74,5 +74,15 @@ router.put("/savedRecipe",async(req,res)=>{
         console.log(error)
     }
 })
+//get the id of saved recipe from db 
+router.get("/savedRecipe/id/:userId",async(req,res)=>{
+    try {
+        const user=await UsersDb.findById(req.params.userId)
+        const savedRecipe=user?.savedrecipe
+        res.status(201).json({savedRecipe})
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 module.exports=router

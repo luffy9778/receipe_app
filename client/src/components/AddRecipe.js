@@ -1,6 +1,7 @@
 import axios from 'axios'
-import React, { useState } from 'react' 
-const AddRecipe = () => {
+import React, { useEffect, useState } from 'react' 
+const AddRecipe = ({setnavSearch}) => {
+  setnavSearch(false)
   const[recipe,setRecipe]=useState({
     name:"",
     ingredients:[],

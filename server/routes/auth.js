@@ -13,7 +13,7 @@ router.post("/register",async(req,res)=>{
     //checking for duplicate
     const user=await Usermodel.findOne({username})
     if(user){
-        return res.status(401).json({message:"username already taken"})
+        return res.status(409).json({message:"username already taken"})
     }
     //encrypt the password
     const hashpwd= await bcrypt.hash(password,10)
@@ -26,7 +26,7 @@ router.post("/register",async(req,res)=>{
 router.post("/login",async(req,res)=>{
     const{username,password}=req.body
     if(!username||!password){
-        return res.status(401).json({message:"username and password are required"})
+        return res.status(400).json({message:"username and password are required"})
     }
     const user=await Usermodel.findOne({username}) 
     if(!user){
@@ -34,7 +34,7 @@ router.post("/login",async(req,res)=>{
     }
     const unhashpwd=await bcrypt.compare(password,user.password)
     if(!unhashpwd){
-        res.status(400).json({message:"incorrect password "})
+       return res.status(401).json({message:"incorrect password "})
     }
     const token=jwt.sign({id:user._id},"secret")
     console.log(user)
