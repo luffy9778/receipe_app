@@ -8,7 +8,11 @@ const UserModel=new mongoose.Schema({
     password:{
         type:String,
         require:true
-    }
+    },
+    savedrecipe:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"recipes"
+    }]
 
 })
 module.exports=mongoose.model("users",UserModel)

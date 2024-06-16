@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react' 
-const Recipe = () => {
+const AddRecipe = () => {
   const[recipe,setRecipe]=useState({
     name:"",
     ingredients:[],
@@ -99,4 +99,4 @@ const Recipe = () => {
   )
 }
 
-export default Recipe
+export default AddRecipe

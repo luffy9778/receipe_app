@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 const Home = ({search}) => {
   const[recipes,setRecipe]=useState([])
+  const [saverecipe,setSaverecipe]=useState('')
   useEffect(()=>{
     const fetchrecipes=async()=>{
       try {
@@ -24,6 +25,18 @@ const Home = ({search}) => {
     }
     fetchrecipes()
   },[search])
+
+  //saving recipe
+  const save=async(recipeId)=>{
+    const user=JSON.parse(localStorage.getItem("user"))
+    const userId=user._id
+    console.log(user)
+    const response= await axios.put("http://localhost:3000/recipe",{
+      recipeId,
+      userId
+    })
+    setSaverecipe(response.data)
+  }
   return (
     <div>
       <h2 className='text-center mt-5 p-4'>recipes</h2>
@@ -50,7 +63,7 @@ const Home = ({search}) => {
            <Card.Text>
              {recipe.cookingTime}
            </Card.Text>
-           <Button variant="primary">save</Button>
+           <Button variant="primary" onClick={()=>save(recipe._id)}>save</Button>
          </Card.Body>
        </Card>
        </div>

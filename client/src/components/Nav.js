@@ -4,15 +4,15 @@ import {Link,useNavigate} from "react-router-dom"
 const Nav = ({search,setSearch}) => {
   const[cookie,setCookies]=useCookies(["access_token"])
   const[user,setUsername]=useState([])
-   useEffect(()=>{
-        const data = JSON.parse(localStorage.getItem('user'))
-        if(data){
-          setUsername(data)
-        }
-     },[cookie,user])
+  //  useEffect(()=>{
+  //       const data = JSON.parse(localStorage.getItem('user'))
+  //       if(data){
+  //         setUsername(data)
+  //       }
+  //    },[user])
 
   const navigate=useNavigate()
-  console.log("cooki", cookie)
+  // console.log("cooki", cookie)
   const logout = () => {
     localStorage.clear();
     setCookies("access_token", "");
@@ -41,6 +41,9 @@ const Nav = ({search,setSearch}) => {
                 <li className="nav-item active">
                   <Link className='nav-link text-white' to="/recipe"><h4>Resceipe</h4></Link>
                 </li>
+                <li className="nav-item active">
+                  <Link className='nav-link text-white' to="/savedrecipe"><h4>SavedRecipe</h4></Link>
+                </li>
                 <li className="nav-item active my-auto">
                   <form class="d-flex" role="search">
                     <input 
@@ -62,7 +65,7 @@ const Nav = ({search,setSearch}) => {
                 <li className="nav-item my-auto">
                   {!cookie.access_token?
                   (<Link className='nav-link text-white' to="/login"><h4>Login</h4></Link>):
-                  (<button className='btn-btn bg-info ' onClick={logout}>logout</button>)}
+                  (<button className='btn-btn text-white bg-secondary ' onClick={logout}>logout</button>)}
                 </li>
               </ul>
             </div>

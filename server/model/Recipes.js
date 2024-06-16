@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+const { type } = require("os")
 const RecipesModel=new mongoose.Schema({
     name: {
         type: String,
@@ -22,6 +23,11 @@ const RecipesModel=new mongoose.Schema({
       cookingTime: {
         type: Number,
         required: true,
+      },
+      userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"users",
+        required:true
       }
 })
 module.exports=mongoose.model("recipes",RecipesModel)
