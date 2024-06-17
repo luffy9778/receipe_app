@@ -1,7 +1,7 @@
 const express=require("express")
 const jwt=require("jsonwebtoken")
 const verifytoken=(req,res,next)=>{
-    const authheader=req.headers.autherization
+    const authheader=req.headers.authorization
     if(authheader){
         jwt.verify(authheader,"secret",(err)=>{
             if (err) {

@@ -24,9 +24,13 @@ const RecipesModel=new mongoose.Schema({
         type: Number,
         required: true,
       },
-      userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"users",
+      // userId:{
+      //   type:mongoose.Schema.Types.ObjectId,
+      //   ref:"users",
+      //   required:true
+      // },
+      userName:{
+        type:String,
         required:true
       }
 })

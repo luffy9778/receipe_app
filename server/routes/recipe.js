@@ -2,12 +2,11 @@ const express=require("express")
 const RecipesModel=require("../model/Recipes")
 const  verifytoken = require("../middleware/verifytoken")
 const UsersDb = require("../model/UsersDb")
-const Recipes = require("../model/Recipes")
 const router=express.Router()
 
 router.post("/",verifytoken, async(req,res)=>{
-    const{name,ingredients,instructions,imageUrl,cookingTime}=req.body
-    if(!name||!ingredients||!instructions||!imageUrl||!cookingTime){
+    const{name,ingredients,instructions,imageUrl,cookingTime,userName}=req.body
+    if(!name||!ingredients||!instructions||!imageUrl||!cookingTime||!userName){
         return res.status(401).json({message:"all feilds are required"})
     }
    try {
@@ -16,7 +15,8 @@ router.post("/",verifytoken, async(req,res)=>{
         ingredients,
         instructions,
         imageUrl,
-        cookingTime
+        cookingTime,
+        userName
     })
     console.log(recipe)
     res.status(200).json({message:"new recipe added successfully"})
