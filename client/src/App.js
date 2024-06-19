@@ -7,6 +7,7 @@ import "./App.css"
 import AddRecipe from "./components/AddRecipe";
 import { useState } from "react";
 import SavedRecipe from "./components/SavedRecipe";
+import AdminUserView from "./components/AdminUserView";
 function App() {
   const [search,setSearch]=useState('')
   const [navSearch,setnavSearch]=useState(true)
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/recipe" element={<AddRecipe setnavSearch={setnavSearch}/>}/>
           <Route path="/savedrecipe" element={<SavedRecipe setnavSearch={setnavSearch}/>}/>
+          <Route path="/user" element={<AdminUserView/>}/>
         </Routes>
       </Router>
     
