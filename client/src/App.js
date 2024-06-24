@@ -1,29 +1,30 @@
 import Home from "./components/Home";
-import Login from "./components/Login";
+import Login from "./components/Auth/Login";
 import Nav from "./components/Nav";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import Register from "./components/Register";
-import "./App.css"
-import AddRecipe from "./components/AddRecipe";
-import { useState } from "react";
-import SavedRecipe from "./components/SavedRecipe";
-import AdminUserView from "./components/AdminUserView";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Register from "./components/Auth/Register";
+import AddRecipe from "./components/User/AddRecipe";
+import SavedRecipe from "./components/User/SavedRecipe";
+import AdminUserView from "./components/Admin/AdminUserView";
+import Userprofile from "./components/Userprofile";
+import AdminUserRecipes from "./components/Admin/AdminUserRecipes";
+import AdminrecipeView from "./components/Admin/AdminrecipeView";
 function App() {
-  const [search,setSearch]=useState('')
-  const [navSearch,setnavSearch]=useState(true)
   return (
     <div className="App">
       <Router>
-        <Nav search={search}
-        setSearch={setSearch}
-        navSearch={navSearch}/>
+        <Nav/>
         <Routes>
-          <Route path="/" element={<Home search={search} setnavSearch={setnavSearch}/>}/>
-          <Route path="/login" element={<Login setnavSearch={setnavSearch}/>}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="/user/:userId" element={<Userprofile/>}/>
+          <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/recipe" element={<AddRecipe setnavSearch={setnavSearch}/>}/>
-          <Route path="/savedrecipe" element={<SavedRecipe setnavSearch={setnavSearch}/>}/>
-          <Route path="/user" element={<AdminUserView/>}/>
+          <Route path="/recipe" element={<AddRecipe />}/>
+          <Route path="/savedrecipe" element={<SavedRecipe />}/>
+          <Route path="/admin" element={<AdminUserView/>}/>
+          <Route path="/admin/:userId" element={<AdminUserRecipes/>}/>
+          <Route path="/admin/recipe" element={<AdminrecipeView/>}/>
+ 
         </Routes>
       </Router>
     

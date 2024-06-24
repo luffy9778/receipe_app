@@ -5,7 +5,7 @@ const UsersDb = require("../model/UsersDb")
 const router=express.Router()
 
 router.post("/",verifytoken, async(req,res)=>{
-    const{name,ingredients,instructions,imageUrl,cookingTime,userName}=req.body
+    const{name,ingredients,instructions,imageUrl,cookingTime,userName,userId}=req.body
     if(!name||!ingredients||!instructions||!imageUrl||!cookingTime||!userName){
         return res.status(401).json({message:"all feilds are required"})
     }
@@ -16,9 +16,8 @@ router.post("/",verifytoken, async(req,res)=>{
         instructions,
         imageUrl,
         cookingTime,
-        userName
+        userName,userId
     })
-    console.log(recipe)
     res.status(200).json({message:"new recipe added successfully"})
    } catch (error) {
     console.log(error)
@@ -52,11 +51,9 @@ router.put("/",async(req,res)=>{
 router.get("/savedRecipe/:userId",async(req,res)=>{
     try {
         const user=await UsersDb.findById(req.params.userId)
-        console.log("u",user)
-        const savedRecipes = await RecipesModel.find({
+        const savedRecipes = await RecipesModel?.find({
             _id: { $in: user.savedrecipe },
           });
-          console.log("savedrecipe",savedRecipes)
           res.status(201).json({savedRecipes})
     } catch (error) {
         console.log(error)

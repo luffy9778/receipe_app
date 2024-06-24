@@ -1,41 +1,48 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react' 
-import { useUser } from '../hooks/useUser'
+import { useUser } from '../../hooks/useUser'
 import { useCookies } from 'react-cookie'
 
-const AddRecipe = ({setnavSearch}) => {
-  setnavSearch(false)
+const AddRecipe = () => {
   const user=useUser()
   const [cookies, _] = useCookies(["access_token"]);
-  console.log(cookies)
+ 
   const[recipe,setRecipe]=useState({
     name:"",
     ingredients:[],
     instructions:"",
     imageUrl:"",
     cookingTime:Number,
-    userName:user.username
+    userName:user.username,
+    userId:user._id
   })
+  useEffect(()=>{
+    const r=recipe
+    r.userName=user.username
+    r.userId=user._id
+    setRecipe(r)
+  },[recipe])
   const onchange=(e)=>{
     const{name,value}=e.target
     setRecipe({...recipe,[name]:value})
   }
   const handlesubmit=async(e)=>{
     e.preventDefault()
-    console.log(recipe)
     try {
-      await axios.post("http://localhost:3000/recipe",{...recipe},
+      await axios.post("http://localhost:3001/recipe",{...recipe},
         {
           headers: { authorization: cookies.access_token },
         }
       )
+     
       setRecipe({
         name:"",
         ingredients:[],
         instructions:"",
         imageUrl:"",
-        cookingTime:Number
+        cookingTime:''
       })
+      alert("new recipe added")
     } catch (error) {
       console.log(error)
     }

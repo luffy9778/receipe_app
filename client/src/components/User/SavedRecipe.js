@@ -1,17 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useUser } from '../hooks/useUser'
+import { useUser } from '../../hooks/useUser'
 import { Link } from 'react-router-dom'
 
-const SavedRecipe = ({setnavSearch}) => {
+const SavedRecipe = () => {
     const [savedRecipe,setSavedrecipe]=useState([])
     const user=useUser()
-    setnavSearch(true)
     const userId=user._id
     useEffect(()=>{
         const fetchSavedRecipe=async()=>{
             try {
-                const response=await axios.get(`http://localhost:3000/recipe/savedRecipe/${userId}`)
+                const response=await axios.get(`http://localhost:3001/recipe/savedRecipe/${userId}`)
                 setSavedrecipe(response.data.savedRecipes)
             } catch (error) {
                 console.log(error)
@@ -26,7 +25,7 @@ const deleteRecipe=async(id)=>{
     setSavedrecipe(data)
     // console.log("after",savedRecipe)
     const sr=data.map((i)=>i._id)
-    await axios.put("http://localhost:3000/recipe/savedRecipe",{userId,sr})
+    await axios.put("http://localhost:3001/recipe/savedRecipe",{userId,sr})
     
 }
   return (   
@@ -37,16 +36,16 @@ const deleteRecipe=async(id)=>{
             <Link to={"/"}>Home</Link></h5></div>):
             savedRecipe.map((item)=>(
                 <div className='col-md-3'>
-                    <div class="card p-2 " >
-                        <img src={item.imageUrl} className="card-img-top" alt="..."/>
-                        <div className="card-body">
+                    <div class="card p-2 "  >
+                        <img src={item.imageUrl} className="card-img-top" style={{height:"10rem"}} alt="..."/>
+                        <div className="card-body " style={{height:"10rem"}}>
                             <h5 className="card-title">{item.name}</h5>
-                            <p className="card-text">{item.ingredients.toString().length<25?(item.ingredients):(`${item.ingredients.slice(0,25)}...`)}
+                            <p className="card-text">{item.ingredients.toString().length<15?(item.ingredients):(`${item.ingredients.slice(0,15)}...`)}
                             </p>
-                            <p className="card-text">{item.instructions.length<25?(item.instructions):(`${item.instructions.slice(0,25)}...`)}
+                            <p className="card-text">{item.instructions.length<15?(item.instructions):(`${item.instructions.slice(0,15)}...`)}
                             </p>
                             <p className="card-text">{item.cookingTime}</p>
-                            <button href="#" className="btn btn-secondary" on onClick={(()=>deleteRecipe(item._id))}>delete</button>
+                            <button href="#" className="btn btn-secondary position-absolute bottom-0 end-0" on onClick={(()=>deleteRecipe(item._id))}>delete</button>
                         </div>
                     </div>
                 </div>
