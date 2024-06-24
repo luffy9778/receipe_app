@@ -19,11 +19,8 @@ const SavedRecipe = () => {
         fetchSavedRecipe()
     },[])
 const deleteRecipe=async(id)=>{
-    // console.log("before",savedRecipe)
     const data=savedRecipe.filter((i)=>i._id!==id)
-    // console.log("dd",data) 
     setSavedrecipe(data)
-    // console.log("after",savedRecipe)
     const sr=data.map((i)=>i._id)
     await axios.put("http://localhost:3001/recipe/savedRecipe",{userId,sr})
     
@@ -45,7 +42,7 @@ const deleteRecipe=async(id)=>{
                             <p className="card-text">{item.instructions.length<15?(item.instructions):(`${item.instructions.slice(0,15)}...`)}
                             </p>
                             <p className="card-text">{item.cookingTime}</p>
-                            <button href="#" className="btn btn-secondary position-absolute bottom-0 end-0" on onClick={(()=>deleteRecipe(item._id))}>delete</button>
+                            <button href="#" className="btn btn-danger position-absolute bottom-0 end-0" on onClick={(()=>deleteRecipe(item._id))}>delete</button>
                         </div>
                     </div>
                 </div>

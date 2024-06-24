@@ -37,7 +37,10 @@ const Nav = () => {
                 </li>
                 {cookie.access_token&&(<>
                 <li className="nav-item active">
-                  <Link className='nav-link text-white' to="/recipe"><h4>Resceipe</h4></Link>
+                  <Link className='nav-link text-white' to="/recipe"><h4>add Resceipe</h4></Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className='nav-link text-white' to="user/recipes"><h4>your Resceipe</h4></Link>
                 </li>
                 <li className="nav-item active">
                   <Link className='nav-link text-white' to="/savedrecipe"><h4>SavedRecipe</h4></Link>

@@ -9,6 +9,7 @@ import AdminUserView from "./components/Admin/AdminUserView";
 import Userprofile from "./components/Userprofile";
 import AdminUserRecipes from "./components/Admin/AdminUserRecipes";
 import AdminrecipeView from "./components/Admin/AdminrecipeView";
+import { YourRecipes } from "./components/User/YourRecipes";
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/user/:userId" element={<Userprofile/>}/>
+          <Route path="/user/recipes" element={<YourRecipes/>}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/recipe" element={<AddRecipe />}/>

@@ -21,7 +21,6 @@ router.delete("/userInfo/:id",async(req,res)=>{
 router.get("/userrecipe/:userId",async(req,res)=>{
     const userId=req.params?.userId
     const recipes=await Recipes.find({userId}).populate("userId")
-    console.log(recipes)
     res.json(recipes)
 })
 router.delete("/userrecipe/:id",async(req,res)=>{
